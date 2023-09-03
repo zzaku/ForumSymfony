@@ -5,3 +5,37 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+
+home:
+    path: /home
+    controller: App\Controller\HomeController::index
+
+admin_user_list:
+    path: '/admin/user/list'
+    controller: App\Controller\UserController::userList
+
+user_profile:
+    path: '/admin/user/profile/{id}'
+    controller: 'App\Controller\UserController::show'
+    methods: ['GET']
+    requirements:
+        id: \d+
+        
+admin_user_block:
+    path: '/admin/user/block/{id}'
+    controller: 'App\Controller\UserController::blockUser'
+    methods: ['POST']
+    requirements:
+        id: \d+
+
+admin_user_unblock:
+    path: '/admin/user/unblock/{id}'
+    controller: 'App\Controller\UserController::unblockUser'
+    methods: ['POST']
+    requirements:
+        id: \d+
+
+admin_user_profile_update:
+    path: '/admin/user/profile/{id}/update'
+    controller: 'App\Controller\UserController::updateProfile'
+    methods: ['POST']
