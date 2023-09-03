@@ -9,6 +9,7 @@
                     <a href="{{ path('category_boards', {'id': category.id}) }}">
                         {{ category.name }}
                     </a>
+                    <span> créé par : {{ category.user.username }}</span> {# nouvelle ligne pour afficher le nom de l'utilisateur #}
                 </li>
             {% endfor %}
         </ul>
