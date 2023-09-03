@@ -20,6 +20,5 @@ class RegistrationUserRoleListener
         $this->authorizationChecker = $authorizationChecker;
         $this->entityManager = $entityManager;
     }
-
 }
 ?>
