@@ -23,11 +23,12 @@ services:
     App\Entity\User:
         public: true
 
-    App\EventListener\RegistrationUserRoleListener:
-        tags:
-            - { name: doctrine.orm.entity_listener, entity: 'App\Entity\User', event: preUpdate }
 
     App\EventListener\UpdateUserRoleListener:
+        tags:
+            - { name: doctrine.orm.entity_listener, entity: 'App\Entity\User', event: preUpdate }
+            
+    App\EventListener\RegistrationUserRoleListener:
         tags:
             - { name: doctrine.orm.entity_listener, entity: 'App\Entity\User', event: preUpdate }
     # add more service definitions when explicit configuration is needed
