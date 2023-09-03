@@ -1,0 +1,22 @@
+{# templates/board/index.html.twig #}
+{% block body %}
+    <h1>Boards List</h1>
+
+    <a href="{{ path('board_create') }}">Create New Board</a>
+
+    <ul>
+        {% for board in boards %}
+            <li>
+                <a href="{{ path('topic_list', {'board_id': board.id}) }}">
+                    {{ board.name }} 
+                </a>
+                - {{ board.description }} 
+                
+                {% if board.category %}
+                    (Category: {{ board.category.name }})
+                {% endif %}
+                <a href="{{ path('topic_create', {'board_id': board.id}) }}">Create Topic</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

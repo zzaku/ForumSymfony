@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+        {% endblock %}
+    </head>
+    <body>
+     <nav>
+            <ul>
+                <li><a href="{{ path('category_index') }}">Categories</a></li>
+                <li><a href="{{ path('category_create') }}">Create Category</a></li>
+                <li><a href="{{ path('board_index') }}">Boards</a></li>
+                <li><a href="{{ path('board_create') }}">Create Board</a></li>
+            </ul>
+        </nav>
+        {% block body %}{% endblock %}
+    </body>
+</html>

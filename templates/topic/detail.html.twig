@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if topic is not empty %}
+        <h1>{{ topic.title }}</h1>
+
+        <div>
+            <h2>Messages</h2>
+            {% if topic.getMessages() %}
+                {% for message in topic.getMessages() %}
+                    <div>
+                        <strong>Message :</strong> {{ message.getContent() }}
+                        <div>
+                            <strong>Fichiers associés :</strong>
+                            <ul>
+                            {% if message.getFiles() %}
+                                {% for file in message.getFiles() %}
+                                    <li>
+                                        <!-- Lien de téléchargement basé sur une route -->
+                                        <a href="{{ path('file_download', {'id': file.getId()}) }}" target="_blank">{{ file.getFilename() }}</a>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li>Aucun fichier associé</li>
+                            {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Aucun message pour ce sujet.</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <h2>Créer un nouveau message</h2>
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit">Envoyer le message</button>
+            {{ form_end(form) }}
+        </div>
+    {% else %}
+        <p>Ce sujet n'existe pas.</p>
+    {% endif %}
+{% endblock %}

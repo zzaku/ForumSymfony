@@ -1,0 +1,14 @@
+{# templates/topic/create.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Create a New Topic</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Create Topic</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('topic_list', {'board_id': board_id}) }}">Back to Board</a>
+{% endblock %}

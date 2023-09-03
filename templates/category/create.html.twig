@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="category-form">
+        <h1>Create a new Category</h1>
+
+        {{ form_start(form, {'attr': {'class': 'form'}}) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn-create">Create</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{# templates/topic/list.html.twig #}
+{% block body %}
+    <h1>Topic List for Board ID: {{ board_id }}</h1>
+    
+    <ul>
+        {% for topic in topics %}
+            <li>
+                <a href="{{ path('topic_detail', {'board_id': board_id, 'topic_id': topic.id}) }}">  
+                    {{ topic.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
