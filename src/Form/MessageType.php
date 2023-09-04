@@ -17,7 +17,8 @@ class MessageType extends AbstractType
             ->add('files', FileType::class, [
                 'label' => 'Attach Files',
                 'multiple' => true,
-                'mapped' => false
+                'mapped' => false,
+                'required' => false
             ]);
     }
 

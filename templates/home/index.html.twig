@@ -1356,15 +1356,32 @@ body {
                         </div>
                         <hr>
                         <div class="featured-clay">
-                            <div class="clay-category">
-                                {% for category in categories %}
+                            {% for category in categories %}
+                                <div class="clay-category" data-category-id="{{ category.id }}">
                                     <p>{{ category.name }}</p>
-                                {% endfor %}
-                            </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var categoryDivs = document.querySelectorAll(".clay-category");
+        categoryDivs.forEach(function(div) {
+            div.addEventListener("click", function() {
+                // Récupérez l'ID de la catégorie à partir des attributs de données HTML
+                var categoryId = div.getAttribute("data-category-id");
+
+                // Générez l'URL avec l'ID de la catégorie
+                var url = "{{ path('category_boards', {'id': '__CATEGORY_ID__'}) }}".replace("__CATEGORY_ID__", categoryId);
+
+                // Redirigez l'utilisateur vers l'URL
+                window.location.href = url;
+            });
+        });
+    });
+</script>
 {% endblock %}
