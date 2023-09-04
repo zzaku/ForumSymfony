@@ -13,6 +13,14 @@
         <dt>Email:</dt>
         <dd>{{ user.email }}</dd>
 
+        <dt>Rôle:</dt>
+        <dd>
+            {% for role in user.roles %}
+                {{ role }}
+                {% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </dd>
+
     </dl>
 
     <h2>Mettre à jour le domaine de l'e-mail</h2>

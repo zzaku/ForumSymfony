@@ -10,6 +10,14 @@ home:
     path: /home
     controller: App\Controller\HomeController::index
 
+inscription:
+    path: /inscription
+    controller: App\Controller\RegistrationController::index
+    
+connexion:
+    path: /connexion
+    controller: App\Controller\SecurityController::index
+
 admin_user_list:
     path: '/admin/user/list'
     controller: App\Controller\UserController::userList

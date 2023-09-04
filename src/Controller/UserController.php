@@ -83,7 +83,7 @@ class UserController extends AbstractController
                 
                 $this->addFlash('success', 'Profil mis à jour avec succès.');
             }
-            return $this->redirectToRoute('admin_user_list');
+            return $this->redirectToRoute('user_profile', ['id' => $id]);
         }
 
     #[Route(path: '/admin/user/block/{id}', name: 'admin_user_block')]

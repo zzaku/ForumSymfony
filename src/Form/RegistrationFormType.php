@@ -38,9 +38,9 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'label' => "Domaine de l'adresse mail",
                 'choices' => [
-                    'insider.fr' => 'insider.fr',
-                    'collaborator.fr' => 'collaborator.fr',
-                    'external.fr' => 'external.fr',
+                    '@insider.fr' => 'insider.fr',
+                    '@collaborator.fr' => 'collaborator.fr',
+                    '@external.fr' => 'external.fr',
                 ],
             ])
             ->add('username', TextType::class, [

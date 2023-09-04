@@ -20,6 +20,10 @@ class RegistrationController extends AbstractController
     {
         $user = new User();
 
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
+
         $user->setIsBlocked(false);
 
         $form = $this->createForm(RegistrationFormType::class, $user);
