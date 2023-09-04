@@ -25,6 +25,10 @@ class Category
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Board::class, orphanRemoval: true)]
     private Collection $boards;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->boards = new ArrayCollection();
@@ -48,7 +52,6 @@ class Category
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -60,7 +63,6 @@ class Category
     public function setDescription(?string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -78,7 +80,6 @@ class Category
             $this->boards->add($board);
             $board->setCategory($this);
         }
-
         return $this;
     }
 
@@ -89,7 +90,17 @@ class Category
                 $board->setCategory(null);
             }
         }
+        return $this;
+    }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
         return $this;
     }
 }

@@ -5,7 +5,12 @@
         <h1>Categories</h1>
         <ul class="category-ul">
             {% for category in categories %}
-                <li class="category-li">{{ category.name }}</li>
+                <li class="category-li">
+                    <a href="{{ path('category_boards', {'id': category.id}) }}">
+                        {{ category.name }}
+                    </a>
+                    <span> créé par : {{ category.user.username }}</span> {# nouvelle ligne pour afficher le nom de l'utilisateur #}
+                </li>
             {% endfor %}
         </ul>
     </div>
