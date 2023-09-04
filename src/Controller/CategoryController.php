@@ -10,15 +10,42 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Security\CategoryVoter;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class CategoryController extends AbstractController
 {
-    #[Route('/category', name: 'category_index')]
-    public function index(CategoryRepository $categoryRepository): Response
+    private $security;
+
+    public function __construct(Security $security)
     {
+        $this->security = $security;
+    }
+
+    #[Route('/category', name: 'category_index')]
+    public function index(CategoryRepository $categoryRepository, AuthorizationCheckerInterface $authorizationChecker): Response
+    {
+        $user = $this->getUser();
+        $roles = $user->getRoles();
+        $isAdmin = $this->security->isGranted('ROLE_ADMIN');
+
         $categories = $categoryRepository->findAll();
+        $allowedCategories = [];
+
+        foreach ($categories as $category) {
+            $isAuthor = ($user === $category->getUser());
+            $hasSameRole = ($user->getRoles() === $category->getUser()->getRoles());
+
+            $isAllowed = $this->isGranted(CategoryVoter::VIEW, $category, $isAdmin, $isAuthor, $hasSameRole);
+
+            if ($isAllowed) {
+                $allowedCategories[] = $category;
+            }
+        }
+
         return $this->render('category/index.html.twig', [
-            'categories' => $categories,
+            'categories' => $allowedCategories,
         ]);
     }
 
@@ -49,9 +76,22 @@ class CategoryController extends AbstractController
     public function showBoards(int $id, CategoryRepository $categoryRepository): Response
     {
         $category = $categoryRepository->find($id);
+
         if (!$category) {
             throw $this->createNotFoundException('The category does not exist');
         }
+
+        $user = $this->getUser();
+        $isAdmin = $this->security->isGranted('ROLE_ADMIN');
+        $isAuthor = ($user === $category->getUser());
+        $hasSameRole = ($user->getRoles() === $category->getUser()->getRoles());
+
+        $isAllowed = $this->isGranted(CategoryVoter::VIEW, $category, $isAdmin, $isAuthor, $hasSameRole);
+
+        if (!$isAllowed) {
+            throw $this->createAccessDeniedException('You do not have access to view this category.');
+        }
+
         return $this->render('board/index.html.twig', [
             'boards' => $category->getBoards(),
         ]);

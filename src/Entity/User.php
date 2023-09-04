@@ -25,6 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
     #[ORM\Column]
     private ?bool $isBlocked = null;
+    private $plainPassword;
     public function getId(): ?string
     {
         return $this->id;
@@ -108,5 +109,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->isBlocked = $isBlocked;
         return $this;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
     }
 }

@@ -7,7 +7,11 @@
             {% for category in categories %}
                 <li class="category-li">
                     <a href="{{ path('category_boards', {'id': category.id}) }}">
+                    {% if is_granted('VIEW', category) %}
                         {{ category.name }}
+                    {% else %}
+                            <p>You do not have access to view this category.</p>
+                    {% endif %}
                     </a>
                     <span> créé par : {{ category.user.username }}</span> {# nouvelle ligne pour afficher le nom de l'utilisateur #}
                 </li>

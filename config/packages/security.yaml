@@ -41,9 +41,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/profile, roles: ROLE_INSIDER }
-         - { path: ^/profile, roles: ROLE_COLLABORATOR }
-         - { path: ^/profile, roles: ROLE_EXTERNAL }
+         - { path: ^/profile, roles: [ROLE_EXTERNAL, ROLE_INSIDER, ROLE_COLLABORATOR] }
 
 when@test:
     security:

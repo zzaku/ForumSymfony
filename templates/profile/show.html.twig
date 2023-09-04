@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }} {# Cela inclura les stylesheets du modèle parent (base.html.twig) #}
+    <link rel="stylesheet" href="{{ asset('assets/css/securityForm.css') }}">
+{% endblock %}
+
+{% block body %}
+<section class="container">
+    <div class="login-container">
+        <div class="circle circle-one"></div>
+        <div class="form-container">
+            <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
+            <h1 class="opacity">Modifier les informations de votre profile</h1>
+
+            <form method="post" action="{{ path('update_profile') }}" class="opacity">
+                {{ form_start(form) }}
+                {{ form_row(form.username, { 'label': "Nom d'utilisateur" }) }}
+                {{ form_row(form.plainPassword) }}
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('edit_profile') }}">
+
+                <button class="btn btn-lg btn-primary" type="submit">
+                    Sauvegarder
+                </button>
+                {{ form_end(form) }}
+            </form>
+        </div>
+        <div class="circle circle-two"></div>
+    </div>
+</section>
+{% endblock %}
